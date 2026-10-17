@@ -1,0 +1,144 @@
+{
+  "auditor": "pinebuild-auditor",
+  "benign_decisions": [
+    {
+      "decision": "benign",
+      "evidence": "Rotation draft: old token [REDACTED:old-docs] was revoked in this fixture.",
+      "line": 1,
+      "next_action": "Remove the stale value during repository cleanup; policy does not require rotation for an already-revoked marker.",
+      "path": "docs/rotation.txt",
+      "rationale": "The inventory classifies this token as revoked_in_fixture. The remaining text is stale but is not current credential exposure.",
+      "rule_id": "S1",
+      "severity": "info",
+      "token_id": "old-docs",
+      "workflow_id": null
+    },
+    {
+      "decision": "benign",
+      "evidence": "API_TOKEN=[REDACTED:local-test]",
+      "line": 2,
+      "next_action": "No credential action; keep the fixture marker nonfunctional.",
+      "path": "tests/mock.txt",
+      "rationale": "The inventory classifies this token as test_only. It is a nonfunctional fixture marker, not current credential exposure.",
+      "rule_id": "S1",
+      "severity": "info",
+      "token_id": "local-test",
+      "workflow_id": null
+    },
+    {
+      "decision": "benign",
+      "evidence": "trigger=tag; runs_untrusted_code=false; permissions=release-write; secret_refs=[\"release-active\"]; log_environment=false; artifact_paths=[\"build/report.txt\"]",
+      "line": null,
+      "next_action": "No action; retain this configuration.",
+      "path": null,
+      "rationale": "This workflow configuration passes S2-S5: permissions are allowed for its trigger/untrusted combination, no active secret is referenced by untrusted or logging behavior, and no sensitive artifact is published. S1 is evaluated separately at file level.",
+      "rule_id": "WORKFLOW",
+      "severity": "info",
+      "token_id": null,
+      "workflow_id": "release"
+    }
+  ],
+  "counts": {
+    "benign": 3,
+    "findings": 5,
+    "findings_by_rule": {
+      "S1": 1,
+      "S2": 1,
+      "S3": 1,
+      "S4": 1,
+      "S5": 1
+    },
+    "findings_by_severity": {
+      "critical": 3,
+      "high": 2
+    },
+    "unresolved": 0
+  },
+  "findings": [
+    {
+      "decision": "finding",
+      "evidence": "RELEASE_TOKEN=[REDACTED:release-active]",
+      "line": 2,
+      "next_action": "Remove the plaintext value, load it from the CI secret store, and rotate the credential.",
+      "path": "app/env.txt",
+      "rationale": "The inventory classifies this token as active_in_fixture, so its plaintext value in scanned content is exposure. S1 applies regardless of the filename.",
+      "rule_id": "S1",
+      "severity": "critical",
+      "token_id": "release-active",
+      "workflow_id": null
+    },
+    {
+      "decision": "finding",
+      "evidence": "trigger=pull_request; runs_untrusted_code=true; active_secret_refs=[\"release-active\"]",
+      "line": null,
+      "next_action": "Remove active secret references from untrusted workflows, or move the job to a trusted trigger; rotate any credential that may have been exposed.",
+      "path": null,
+      "rationale": "Untrusted code and an active secret reference coexist in this workflow; the configuration permits secret availability. The trigger alone does not prove exploitation.",
+      "rule_id": "S2",
+      "severity": "critical",
+      "token_id": null,
+      "workflow_id": "pr-build"
+    },
+    {
+      "decision": "finding",
+      "evidence": "trigger=pull_request; runs_untrusted_code=true; permissions=write-all",
+      "line": null,
+      "next_action": "Use read-only permissions; reserve release-write for trusted tag releases; never use write-all.",
+      "path": null,
+      "rationale": "write-all is never permitted. release-write is permitted only when trigger=tag and runs_untrusted_code=false.",
+      "rule_id": "S3",
+      "severity": "high",
+      "token_id": null,
+      "workflow_id": "pr-build"
+    },
+    {
+      "decision": "finding",
+      "evidence": "log_environment=true; active_secret_refs=[\"release-active\"]",
+      "line": null,
+      "next_action": "Disable log_environment and rotate any active secret that may have been logged.",
+      "path": null,
+      "rationale": "log_environment=true models full environment logging; an active secret would be written to the log.",
+      "rule_id": "S4",
+      "severity": "critical",
+      "token_id": null,
+      "workflow_id": "pr-build"
+    },
+    {
+      "decision": "finding",
+      "evidence": "artifact_paths=[\"app/env.txt\", \"build/report.txt\"]; matches=\"app/env.txt\" -> \"app/env.txt\"",
+      "line": null,
+      "next_action": "Remove sensitive paths and broad wildcards from artifact_paths; publish only explicit non-sensitive files.",
+      "path": null,
+      "rationale": "An artifact pattern publishes a configured sensitive path. Token state is ignored here so future credentials in that path are protected too.",
+      "rule_id": "S5",
+      "severity": "high",
+      "token_id": null,
+      "workflow_id": "pr-build"
+    }
+  ],
+  "ruleset": "pinebuild-policy-v1",
+  "schema_version": 1,
+  "scope": {
+    "not_scanned": [
+      "inventory.json",
+      "ci.json"
+    ],
+    "scanned_dirs": [
+      "app",
+      "tests",
+      "docs",
+      "build"
+    ],
+    "scanned_files": [
+      "app/env.txt",
+      "build/report.txt",
+      "docs/rotation.txt",
+      "tests/mock.txt"
+    ],
+    "sensitive_paths": [
+      "app/env.txt",
+      "docs/rotation.txt"
+    ]
+  },
+  "snapshot": "snapshot-one"
+}

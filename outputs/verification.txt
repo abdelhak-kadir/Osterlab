@@ -1,0 +1,225 @@
+PineBuild audit verification
+$ python3 --version
+Python 3.14.4
+Platform: Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43
+
+$ python3 -m unittest discover -s tests -t . -v
+test_documented_command_succeeds_and_writes_both_files (tests.test_cli.CliTests.test_documented_command_succeeds_and_writes_both_files) ... ok
+test_fail_on_findings_returns_one_but_still_writes_outputs (tests.test_cli.CliTests.test_fail_on_findings_returns_one_but_still_writes_outputs) ... ok
+test_fail_on_findings_returns_zero_when_clean (tests.test_cli.CliTests.test_fail_on_findings_returns_zero_when_clean) ... ok
+test_invalid_schema_returns_two (tests.test_cli.CliTests.test_invalid_schema_returns_two) ... ok
+test_missing_snapshot_returns_two (tests.test_cli.CliTests.test_missing_snapshot_returns_two) ... ok
+test_out_inside_snapshot_is_rejected_without_writing (tests.test_cli.CliTests.test_out_inside_snapshot_is_rejected_without_writing) ... ok
+test_version_flag (tests.test_cli.CliTests.test_version_flag) ... ok
+test_deterministic_output (tests.test_golden.GoldenTests.test_deterministic_output) ... ok
+test_outputs_never_contain_raw_token_values (tests.test_golden.GoldenTests.test_outputs_never_contain_raw_token_values) ... ok
+test_scope_excludes_metadata_and_lists_content (tests.test_golden.GoldenTests.test_scope_excludes_metadata_and_lists_content) ... ok
+test_snapshot_is_not_modified (tests.test_golden.GoldenTests.test_snapshot_is_not_modified) ... ok
+test_snapshot_one_exact_decisions (tests.test_golden.GoldenTests.test_snapshot_one_exact_decisions) ... ok
+test_snapshot_two_exact_decisions (tests.test_golden.GoldenTests.test_snapshot_two_exact_decisions) ... ok
+test_third_synthetic_mutation_needs_no_code_change (tests.test_golden.GoldenTests.test_third_synthetic_mutation_needs_no_code_change) ... ok
+test_ci_schema_version_is_optional_but_validated (tests.test_loader.LoaderTests.test_ci_schema_version_is_optional_but_validated) ... ok
+test_duplicate_token_id_is_an_error (tests.test_loader.LoaderTests.test_duplicate_token_id_is_an_error) ... ok
+test_duplicate_token_value_is_an_error_without_leaking_it (tests.test_loader.LoaderTests.test_duplicate_token_value_is_an_error_without_leaking_it) ... ok
+test_duplicate_workflow_id_is_an_error (tests.test_loader.LoaderTests.test_duplicate_workflow_id_is_an_error) ... ok
+test_empty_collections_are_valid (tests.test_loader.LoaderTests.test_empty_collections_are_valid) ... ok
+test_empty_token_id_is_an_error (tests.test_loader.LoaderTests.test_empty_token_id_is_an_error) ... ok
+test_extra_fields_are_tolerated (tests.test_loader.LoaderTests.test_extra_fields_are_tolerated) ... ok
+test_invalid_permissions_is_an_error (tests.test_loader.LoaderTests.test_invalid_permissions_is_an_error) ... ok
+test_invalid_state_is_an_error (tests.test_loader.LoaderTests.test_invalid_state_is_an_error) ... ok
+test_invalid_trigger_is_an_error (tests.test_loader.LoaderTests.test_invalid_trigger_is_an_error) ... ok
+test_inventory_schema_version_must_be_one (tests.test_loader.LoaderTests.test_inventory_schema_version_must_be_one) ... ok
+test_malformed_json_is_an_error (tests.test_loader.LoaderTests.test_malformed_json_is_an_error) ... ok
+test_missing_ci_is_an_error (tests.test_loader.LoaderTests.test_missing_ci_is_an_error) ... ok
+test_missing_inventory_is_an_error (tests.test_loader.LoaderTests.test_missing_inventory_is_an_error) ... ok
+test_multiline_token_value_is_an_error (tests.test_loader.LoaderTests.test_multiline_token_value_is_an_error) ... ok
+test_non_boolean_flag_is_an_error (tests.test_loader.LoaderTests.test_non_boolean_flag_is_an_error) ... ok
+test_non_string_ref_is_an_error (tests.test_loader.LoaderTests.test_non_string_ref_is_an_error) ... ok
+test_token_value_must_be_a_string (tests.test_loader.LoaderTests.test_token_value_must_be_a_string) ... ok
+test_unknown_secret_ref_is_not_a_schema_error (tests.test_loader.LoaderTests.test_unknown_secret_ref_is_not_a_schema_error) ... ok
+test_valid_snapshot_loads (tests.test_loader.LoaderTests.test_valid_snapshot_loads) ... ok
+test_absent_value_is_unchanged (tests.test_redact.RedactTests.test_absent_value_is_unchanged) ... ok
+test_input_order_does_not_matter (tests.test_redact.RedactTests.test_input_order_does_not_matter) ... ok
+test_longest_value_is_replaced_first (tests.test_redact.RedactTests.test_longest_value_is_replaced_first) ... ok
+test_multiple_occurrences_are_all_replaced (tests.test_redact.RedactTests.test_multiple_occurrences_are_all_replaced) ... ok
+test_no_tokens_returns_text_unchanged (tests.test_redact.RedactTests.test_no_tokens_returns_text_unchanged) ... ok
+test_regex_metacharacters_are_escaped (tests.test_redact.RedactTests.test_regex_metacharacters_are_escaped) ... ok
+test_replaces_values_and_preserves_token_id (tests.test_redact.RedactTests.test_replaces_values_and_preserves_token_id) ... ok
+test_clean_workflow_emits_benign_decision (tests.test_rules.RulesTests.test_clean_workflow_emits_benign_decision) ... ok
+test_permissions_allowed_helper (tests.test_rules.RulesTests.test_permissions_allowed_helper) ... ok
+test_s2_fires_for_untrusted_code_with_active_ref (tests.test_rules.RulesTests.test_s2_fires_for_untrusted_code_with_active_ref) ... ok
+test_s2_ignores_revoked_test_only_and_empty_refs (tests.test_rules.RulesTests.test_s2_ignores_revoked_test_only_and_empty_refs) ... ok
+test_s2_mixed_refs_reports_only_active_evidence (tests.test_rules.RulesTests.test_s2_mixed_refs_reports_only_active_evidence) ... ok
+test_s2_requires_untrusted_code (tests.test_rules.RulesTests.test_s2_requires_untrusted_code) ... ok
+test_s3_permission_trigger_table (tests.test_rules.RulesTests.test_s3_permission_trigger_table) ... ok
+test_s4_does_not_fire_without_logging (tests.test_rules.RulesTests.test_s4_does_not_fire_without_logging) ... ok
+test_s4_fires_for_logging_with_active_ref (tests.test_rules.RulesTests.test_s4_fires_for_logging_with_active_ref) ... ok
+test_s4_has_no_trusted_tag_exception (tests.test_rules.RulesTests.test_s4_has_no_trusted_tag_exception) ... ok
+test_s4_ignores_non_active_and_empty_refs (tests.test_rules.RulesTests.test_s4_ignores_non_active_and_empty_refs) ... ok
+test_s5_aggregates_multiple_patterns_in_one_finding (tests.test_rules.RulesTests.test_s5_aggregates_multiple_patterns_in_one_finding) ... ok
+test_s5_does_not_fire_when_sensitive_file_is_absent (tests.test_rules.RulesTests.test_s5_does_not_fire_when_sensitive_file_is_absent) ... ok
+test_s5_ignores_token_state (tests.test_rules.RulesTests.test_s5_ignores_token_state) ... ok
+test_s5_is_case_sensitive (tests.test_rules.RulesTests.test_s5_is_case_sensitive) ... ok
+test_s5_non_sensitive_wildcard_does_not_match (tests.test_rules.RulesTests.test_s5_non_sensitive_wildcard_does_not_match) ... ok
+test_s5_requires_whole_path_match (tests.test_rules.RulesTests.test_s5_requires_whole_path_match) ... ok
+test_s5_star_matches_both_sensitive_paths (tests.test_rules.RulesTests.test_s5_star_matches_both_sensitive_paths) ... ok
+test_s5_wildcard_matches_sensitive_path (tests.test_rules.RulesTests.test_s5_wildcard_matches_sensitive_path) ... ok
+test_trusted_release_with_active_secret_is_benign (tests.test_rules.RulesTests.test_trusted_release_with_active_secret_is_benign) ... ok
+test_unknown_ref_is_unresolved_configuration_not_active (tests.test_rules.RulesTests.test_unknown_ref_is_unresolved_configuration_not_active) ... ok
+test_violating_workflow_has_no_benign_decision (tests.test_rules.RulesTests.test_violating_workflow_has_no_benign_decision) ... ok
+test_active_token_in_docs_is_a_finding (tests.test_scanner.ScannerTests.test_active_token_in_docs_is_a_finding) ... ok
+test_crlf_line_numbers (tests.test_scanner.ScannerTests.test_crlf_line_numbers) ... ok
+test_filename_does_not_exempt_active_token (tests.test_scanner.ScannerTests.test_filename_does_not_exempt_active_token) ... ok
+test_inventory_and_ci_are_not_scanned (tests.test_scanner.ScannerTests.test_inventory_and_ci_are_not_scanned) ... ok
+test_longest_token_wins_when_values_overlap (tests.test_scanner.ScannerTests.test_longest_token_wins_when_values_overlap) ... ok
+test_missing_content_directories_are_fine (tests.test_scanner.ScannerTests.test_missing_content_directories_are_fine) ... ok
+test_repeated_occurrence_on_one_line_is_one_decision (tests.test_scanner.ScannerTests.test_repeated_occurrence_on_one_line_is_one_decision) ... ok
+test_revoked_and_test_only_are_benign (tests.test_scanner.ScannerTests.test_revoked_and_test_only_are_benign) ... ok
+test_symlinked_content_is_skipped (tests.test_scanner.ScannerTests.test_symlinked_content_is_skipped) ... ok
+test_two_lines_produce_two_decisions (tests.test_scanner.ScannerTests.test_two_lines_produce_two_decisions) ... ok
+test_two_tokens_on_one_line_are_both_reported_and_redacted (tests.test_scanner.ScannerTests.test_two_tokens_on_one_line_are_both_reported_and_redacted) ... ok
+
+----------------------------------------------------------------------
+Ran 74 tests in 0.555s
+
+OK
+
+[PASS] unit test suite
+$ /usr/bin/python3 -m auditor inputs/snapshot-one --out outputs/snapshot-one
+exit=0
+PineBuild offline secrets/CI audit
+Snapshot: snapshot-one
+Ruleset: pinebuild-policy-v1
+
+Risk findings: 5
+  Critical: 3
+  High: 2
+Benign decisions: 3
+Unresolved refs: 0
+
+RISK FINDINGS
+1. [CRITICAL] S1 app/env.txt:2 (token_id=release-active)
+   evidence: RELEASE_TOKEN=[REDACTED:release-active]
+   why: The inventory classifies this token as active_in_fixture, so its plaintext value in scanned content is exposure. S1 applies regardless of the filename.
+   next: Remove the plaintext value, load it from the CI secret store, and rotate the credential.
+2. [CRITICAL] S2 workflow=pr-build
+   evidence: trigger=pull_request; runs_untrusted_code=true; active_secret_refs=["release-active"]
+   why: Untrusted code and an active secret reference coexist in this workflow; the configuration permits secret availability. The trigger alone does not prove exploitation.
+   next: Remove active secret references from untrusted workflows, or move the job to a trusted trigger; rotate any credential that may have been exposed.
+3. [CRITICAL] S4 workflow=pr-build
+   evidence: log_environment=true; active_secret_refs=["release-active"]
+   why: log_environment=true models full environment logging; an active secret would be written to the log.
+   next: Disable log_environment and rotate any active secret that may have been logged.
+4. [HIGH] S3 workflow=pr-build
+   evidence: trigger=pull_request; runs_untrusted_code=true; permissions=write-all
+   why: write-all is never permitted. release-write is permitted only when trigger=tag and runs_untrusted_code=false.
+   next: Use read-only permissions; reserve release-write for trusted tag releases; never use write-all.
+5. [HIGH] S5 workflow=pr-build
+   evidence: artifact_paths=["app/env.txt", "build/report.txt"]; matches="app/env.txt" -> "app/env.txt"
+   why: An artifact pattern publishes a configured sensitive path. Token state is ignored here so future credentials in that path are protected too.
+   next: Remove sensitive paths and broad wildcards from artifact_paths; publish only explicit non-sensitive files.
+
+BENIGN DECISIONS
+1. [BENIGN] S1 docs/rotation.txt:1 (token_id=old-docs)
+   evidence: Rotation draft: old token [REDACTED:old-docs] was revoked in this fixture.
+   why: The inventory classifies this token as revoked_in_fixture. The remaining text is stale but is not current credential exposure.
+   next: Remove the stale value during repository cleanup; policy does not require rotation for an already-revoked marker.
+2. [BENIGN] S1 tests/mock.txt:2 (token_id=local-test)
+   evidence: API_TOKEN=[REDACTED:local-test]
+   why: The inventory classifies this token as test_only. It is a nonfunctional fixture marker, not current credential exposure.
+   next: No credential action; keep the fixture marker nonfunctional.
+3. [BENIGN] WORKFLOW workflow=release
+   evidence: trigger=tag; runs_untrusted_code=false; permissions=release-write; secret_refs=["release-active"]; log_environment=false; artifact_paths=["build/report.txt"]
+   why: This workflow configuration passes S2-S5: permissions are allowed for its trigger/untrusted combination, no active secret is referenced by untrusted or logging behavior, and no sensitive artifact is published. S1 is evaluated separately at file level.
+   next: No action; retain this configuration.
+
+NOTE: No raw token values are printed.
+[REDACTED:<token_id>] preserves traceability to inventory.
+
+[PASS] snapshot-one: audit exits 0
+[PASS] snapshot-one: snapshot files unchanged: 6 files hashed
+[PASS] snapshot-one: expected counts (findings, benign, unresolved): (5, 3, 0) == (5, 3, 0)
+[PASS] snapshot-one: rerun is byte-identical
+$ /usr/bin/python3 -m auditor inputs/snapshot-two --out outputs/snapshot-two
+exit=0
+PineBuild offline secrets/CI audit
+Snapshot: snapshot-two
+Ruleset: pinebuild-policy-v1
+
+Risk findings: 2
+  Critical: 1
+  High: 1
+Benign decisions: 4
+Unresolved refs: 0
+
+RISK FINDINGS
+1. [CRITICAL] S1 docs/rotation.txt:2 (token_id=release-rotated)
+   evidence: Temporary troubleshooting copy: [REDACTED:release-rotated]
+   why: The inventory classifies this token as active_in_fixture, so its plaintext value in scanned content is exposure. S1 applies regardless of the filename.
+   next: Remove the plaintext value, load it from the CI secret store, and rotate the credential.
+2. [HIGH] S5 workflow=pr-build
+   evidence: artifact_paths=["app/*", "build/report.txt"]; matches="app/*" -> "app/env.txt"
+   why: An artifact pattern publishes a configured sensitive path. Token state is ignored here so future credentials in that path are protected too.
+   next: Remove sensitive paths and broad wildcards from artifact_paths; publish only explicit non-sensitive files.
+
+BENIGN DECISIONS
+1. [BENIGN] S1 app/env.txt:2 (token_id=release-active)
+   evidence: RELEASE_TOKEN=[REDACTED:release-active]
+   why: The inventory classifies this token as revoked_in_fixture. The remaining text is stale but is not current credential exposure.
+   next: Remove the stale value during repository cleanup; policy does not require rotation for an already-revoked marker.
+2. [BENIGN] S1 docs/rotation.txt:1 (token_id=release-active)
+   evidence: Rotation complete: [REDACTED:release-active] is revoked in this fixture.
+   why: The inventory classifies this token as revoked_in_fixture. The remaining text is stale but is not current credential exposure.
+   next: Remove the stale value during repository cleanup; policy does not require rotation for an already-revoked marker.
+3. [BENIGN] S1 tests/mock.txt:2 (token_id=local-test)
+   evidence: API_TOKEN=[REDACTED:local-test]
+   why: The inventory classifies this token as test_only. It is a nonfunctional fixture marker, not current credential exposure.
+   next: No credential action; keep the fixture marker nonfunctional.
+4. [BENIGN] WORKFLOW workflow=release
+   evidence: trigger=tag; runs_untrusted_code=false; permissions=release-write; secret_refs=["release-rotated"]; log_environment=false; artifact_paths=["build/report.txt"]
+   why: This workflow configuration passes S2-S5: permissions are allowed for its trigger/untrusted combination, no active secret is referenced by untrusted or logging behavior, and no sensitive artifact is published. S1 is evaluated separately at file level.
+   next: No action; retain this configuration.
+
+NOTE: No raw token values are printed.
+[REDACTED:<token_id>] preserves traceability to inventory.
+
+[PASS] snapshot-two: audit exits 0
+[PASS] snapshot-two: snapshot files unchanged: 6 files hashed
+[PASS] snapshot-two: expected counts (findings, benign, unresolved): (2, 4, 0) == (2, 4, 0)
+[PASS] snapshot-two: rerun is byte-identical
+[PASS] fresh copy reproduces outputs and passes tests
+$ /usr/bin/python3 tools/compare_outputs.py outputs/snapshot-one/findings.json outputs/snapshot-two/findings.json
+PineBuild snapshot comparison
+OLD: snapshot-one (findings=5, benign=3, unresolved=0)
+NEW: snapshot-two (findings=2, benign=4, unresolved=0)
+
+RISK FINDINGS RESOLVED (OLD only)
+  - S1 app/env.txt:2 (token_id=release-active) [critical]
+  - S2 workflow=pr-build [critical]
+  - S3 workflow=pr-build [high]
+  - S4 workflow=pr-build [critical]
+
+RISK FINDINGS INTRODUCED (NEW only)
+  - S1 docs/rotation.txt:2 (token_id=release-rotated) [critical]
+
+RISK FINDINGS UNCHANGED
+  - S5 workflow=pr-build [high]
+
+BENIGN DECISIONS ADDED (NEW only)
+  - S1 app/env.txt:2 (token_id=release-active) [info]
+  - S1 docs/rotation.txt:1 (token_id=release-active) [info]
+
+BENIGN DECISIONS REMOVED (OLD only)
+  - S1 docs/rotation.txt:1 (token_id=old-docs) [info]
+
+[PASS] snapshot comparison
+OUTPUT SHA-256
+  outputs/snapshot-one/findings.json  d412575896eecca1bd24ea77bc9e520b4afd791b28f47794e3a58384d8423f10
+  outputs/snapshot-one/summary.txt  0793861711e29c36956c4e888eb35fa6263ad358e8242d0ba9e4a777742f9ea4
+  outputs/snapshot-two/findings.json  99388fa2bb00935d29c44e490b7c2f8dcb2c05dd695a4dab04b5bf32ca3378c9
+  outputs/snapshot-two/summary.txt  e024af9c4a7bce637e2f55462d1c7c62c6a0d760336b9ef0f0814889250f918c
+  outputs/snapshot-diff.txt  ef187f7e20157ecd16273145c0d797114690ad9fa51739fb3cfc46b293731f7d
+
+[PASS] no raw inventory values in outputs, docs or source: 30 files scanned
+
+RESULT: 12/12 checks passed

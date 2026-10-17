@@ -1,0 +1,40 @@
+PineBuild offline secrets/CI audit
+Snapshot: snapshot-two
+Ruleset: pinebuild-policy-v1
+
+Risk findings: 2
+  Critical: 1
+  High: 1
+Benign decisions: 4
+Unresolved refs: 0
+
+RISK FINDINGS
+1. [CRITICAL] S1 docs/rotation.txt:2 (token_id=release-rotated)
+   evidence: Temporary troubleshooting copy: [REDACTED:release-rotated]
+   why: The inventory classifies this token as active_in_fixture, so its plaintext value in scanned content is exposure. S1 applies regardless of the filename.
+   next: Remove the plaintext value, load it from the CI secret store, and rotate the credential.
+2. [HIGH] S5 workflow=pr-build
+   evidence: artifact_paths=["app/*", "build/report.txt"]; matches="app/*" -> "app/env.txt"
+   why: An artifact pattern publishes a configured sensitive path. Token state is ignored here so future credentials in that path are protected too.
+   next: Remove sensitive paths and broad wildcards from artifact_paths; publish only explicit non-sensitive files.
+
+BENIGN DECISIONS
+1. [BENIGN] S1 app/env.txt:2 (token_id=release-active)
+   evidence: RELEASE_TOKEN=[REDACTED:release-active]
+   why: The inventory classifies this token as revoked_in_fixture. The remaining text is stale but is not current credential exposure.
+   next: Remove the stale value during repository cleanup; policy does not require rotation for an already-revoked marker.
+2. [BENIGN] S1 docs/rotation.txt:1 (token_id=release-active)
+   evidence: Rotation complete: [REDACTED:release-active] is revoked in this fixture.
+   why: The inventory classifies this token as revoked_in_fixture. The remaining text is stale but is not current credential exposure.
+   next: Remove the stale value during repository cleanup; policy does not require rotation for an already-revoked marker.
+3. [BENIGN] S1 tests/mock.txt:2 (token_id=local-test)
+   evidence: API_TOKEN=[REDACTED:local-test]
+   why: The inventory classifies this token as test_only. It is a nonfunctional fixture marker, not current credential exposure.
+   next: No credential action; keep the fixture marker nonfunctional.
+4. [BENIGN] WORKFLOW workflow=release
+   evidence: trigger=tag; runs_untrusted_code=false; permissions=release-write; secret_refs=["release-rotated"]; log_environment=false; artifact_paths=["build/report.txt"]
+   why: This workflow configuration passes S2-S5: permissions are allowed for its trigger/untrusted combination, no active secret is referenced by untrusted or logging behavior, and no sensitive artifact is published. S1 is evaluated separately at file level.
+   next: No action; retain this configuration.
+
+NOTE: No raw token values are printed.
+[REDACTED:<token_id>] preserves traceability to inventory.

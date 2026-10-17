@@ -1,0 +1,22 @@
+PineBuild snapshot comparison
+OLD: snapshot-one (findings=5, benign=3, unresolved=0)
+NEW: snapshot-two (findings=2, benign=4, unresolved=0)
+
+RISK FINDINGS RESOLVED (OLD only)
+  - S1 app/env.txt:2 (token_id=release-active) [critical]
+  - S2 workflow=pr-build [critical]
+  - S3 workflow=pr-build [high]
+  - S4 workflow=pr-build [critical]
+
+RISK FINDINGS INTRODUCED (NEW only)
+  - S1 docs/rotation.txt:2 (token_id=release-rotated) [critical]
+
+RISK FINDINGS UNCHANGED
+  - S5 workflow=pr-build [high]
+
+BENIGN DECISIONS ADDED (NEW only)
+  - S1 app/env.txt:2 (token_id=release-active) [info]
+  - S1 docs/rotation.txt:1 (token_id=release-active) [info]
+
+BENIGN DECISIONS REMOVED (OLD only)
+  - S1 docs/rotation.txt:1 (token_id=old-docs) [info]
